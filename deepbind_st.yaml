@@ -1,0 +1,23 @@
+module: SequenceModule
+model:
+  model_name: deepbind_st
+  arch_name: DeepBind
+  arch:
+    input_len: 170  # Adjusted input length to match HybridalaJores21
+    output_dim: 1
+    conv_kwargs:
+      input_channels: 4
+      conv_channels: [64]  # Increased channels to better match the input length and complexity
+      conv_kernels: [13]   # Aligned kernel size with HybridalaJores21
+      dropout_rates: [0.3] # Increased dropout to match the Hybrid model's settings
+      batchnorm: true
+    dense_kwargs:
+      hidden_dims: [64]  # Aligned hidden dimensions with Hybrid model
+      dropout_rates: [0.2]  # Matching dropout rate for consistency
+      batchnorm: true
+task: regression
+loss_fxn: mse
+optimizer: adam
+optimizer_lr: 0.001  # Lowered learning rate to match HybridalaJores21
+scheduler_kwargs:
+  patience: 2
